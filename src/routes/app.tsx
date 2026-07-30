@@ -59,6 +59,17 @@ const NAV = [
   { to: "/app/assistant", label: "AI Assistant", icon: Sparkles, mod: 12 },
 ] as const;
 
+function AppBrand() {
+  return (
+    <Link to="/app/feed" className="flex items-center gap-2.5">
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 p-1">
+        <img src="/favicon.ico" alt="Lablink" className="h-5 w-5 object-contain" />
+      </div>
+      <span className="text-lg font-bold tracking-tight">Lablink</span>
+    </Link>
+  );
+}
+
 function NavList({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
@@ -123,12 +134,14 @@ function AppLayout() {
               <SheetContent side="left" className="w-72 overflow-y-auto p-0">
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
                 <div className="border-b border-border p-4">
-                  <Logo />
+                  <AppBrand />
                 </div>
                 <NavList onNavigate={() => setMobileOpen(false)} />
               </SheetContent>
             </Sheet>
-            <Logo className="hidden sm:flex" />
+            <div className="hidden sm:flex items-center">
+              <AppBrand />
+            </div>
           </div>
 
           <div className="relative min-w-0">
@@ -148,9 +161,9 @@ function AppLayout() {
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="ml-1 rounded-full" aria-label="Account menu">
+                <button className="ml-1 rounded-full outline-none ring-primary focus-visible:ring-2" aria-label="Account menu">
                   <Avatar className="h-9 w-9">
-                    <AvatarFallback className="bg-brand text-xs font-bold text-primary-foreground">
+                    <AvatarFallback className="bg-primary text-xs font-bold text-primary-foreground">
                       {initials}
                     </AvatarFallback>
                   </Avatar>
